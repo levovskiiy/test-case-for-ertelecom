@@ -1,0 +1,7 @@
+@use "functions" as *;
+
+@mixin set-css-vars-from-map($prefix, $map) {
+    @each $key, $value in $map {
+        #{getCssVarName($prefix, $key)}: $value;
+    }
+}

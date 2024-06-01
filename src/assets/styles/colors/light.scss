@@ -1,0 +1,74 @@
+@use "sass:map";
+@use "base";
+@use "../utils/mixins" as *;
+
+$primary:    (
+                 color-bg: map.get(base.$primary, 'light-9'),
+                 color-bg-hover: map.get(base.$primary, 'light-8'),
+                 color-border: map.get(base.$primary, 'light-7'),
+                 color-border-hover: map.get(base.$primary, 'light-6'),
+                 color: base.$primary-base,
+                 color-hover: map.get(base.$primary, 'light-2'),
+                 color-active: map.get(base.$primary, 'light-3'),
+                 color-text: map.get(base.$primary, 'light-3'),
+                 color-text-hover: map.get(base.$primary, 'light-2'),
+                 color-text-active: map.get(base.$primary, 'light-1'),
+             );
+
+
+$success:    (
+                 color-bg: map.get(base.$success, 'light-9'),
+                 color-bg-hover: map.get(base.$success, 'light-8'),
+                 color-border: map.get(base.$success, 'light-7'),
+                 color-border-hover: map.get(base.$success, 'light-6'),
+                 color: base.$success-base,
+                 color-hover: map.get(base.$success, 'light-2'),
+                 color-active: map.get(base.$success, 'light-3'),
+                 color-text: map.get(base.$success, 'light-4'),
+                 color-text-hover: map.get(base.$success, 'light-2'),
+                 color-text-active: map.get(base.$success, 'light-3'),
+             );
+
+
+$warning:    (
+                 color-bg: map.get(base.$warning, 'light-9'),
+                 color-bg-hover: map.get(base.$warning, 'light-8'),
+                 color-border: map.get(base.$warning, 'light-7'),
+                 color-border-hover: map.get(base.$warning, 'light-6'),
+                 color: base.$warning-base,
+                 color-hover: map.get(base.$warning, 'light-2'),
+                 color-active: map.get(base.$warning, 'light-3'),
+                 color-text: map.get(base.$warning, 'light-4'),
+                 color-text-hover: map.get(base.$warning, 'light-2'),
+                 color-text-active: map.get(base.$warning, 'light-3'),
+             );
+
+
+$error:      (
+                 color-bg: map.get(base.$error, 'light-9'),
+                 color-bg-hover: map.get(base.$error, 'light-8'),
+                 color-border: map.get(base.$error, 'light-7'),
+                 color-border-hover: map.get(base.$error, 'light-6'),
+                 color: base.$error-base,
+                 color-hover: map.get(base.$error, 'light-2'),
+                 color-active: map.get(base.$error, 'light-3'),
+                 color-text: map.get(base.$error, 'light-4'),
+                 color-text-hover: map.get(base.$error, 'light-2'),
+                 color-text-active: map.get(base.$error, 'light-3'),
+             );
+
+$text-color: (
+                 light: base.$base-gamma-color,
+                 base: map.get(base.$gamma, 'light-9'),
+                 secondary: map.get(base.$gamma, 'light-7'),
+                 subtle: map.get(base.$gamma, 'light-6'),
+             );
+
+:root {
+    @include set-css-vars-from-map(gamma, base.$gamma);
+    @include set-css-vars-from-map(primary, $primary);
+    @include set-css-vars-from-map(success, $success);
+    @include set-css-vars-from-map(warning, $warning);
+    @include set-css-vars-from-map(error, $error);
+    @include set-css-vars-from-map(text-color, $text-color);
+}

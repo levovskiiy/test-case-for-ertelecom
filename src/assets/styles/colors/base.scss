@@ -1,0 +1,66 @@
+@use "sass:math";
+@use "sass:map";
+
+$types:           primary, success, warning, error;
+
+$base-gamma-color: #fff;
+$base-gamma-dark-color: #000;
+$colors:          (
+                      primary: (
+                          base: #5C54B1,
+                      ),
+                      success: (
+                          base: #52C41A,
+                      ),
+                      warning: (
+                          base: #FAAD14,
+                      ),
+                      error: (
+                          base: #FF4D4F,
+                      ),
+                      gamma: (
+                          base: $base-gamma-color,
+                          dark: $base-gamma-dark-color,
+                      ),
+                  );
+
+
+
+
+
+@mixin mix-color($type, $mix-value, $mode: 'light', $mix-color: white) {
+    $colors: map.deep-merge(
+                     (
+                         $type: (
+                             #{$mode}-#{$mix-value}: mix(
+                                     $mix-color,
+                                     map.get($colors, $type, base),
+                                     math.percentage(math.div($mix-value, 10))
+                             ),
+                         )
+                     ),
+                     $colors
+             ) !global;
+}
+
+@each $type in $types {
+    @for $idx from 1 through 9 {
+        @include mix-color($type, $idx, light, $base-gamma-color);
+    }
+}
+
+@for $idx from 1 through 9 {
+    @include mix-color(gamma, $idx, light, $base-gamma-dark-color);
+}
+
+
+$primary:         map.get($colors, primary);
+$success:         map.get($colors, success);
+$warning:         map.get($colors, warning);
+$error:           map.get($colors, error);
+$gamma:           map.get($colors, gamma);
+
+$primary-base:    map.get($primary, base);
+$success-base:    map.get($success, base);
+$warning-base:    map.get($warning, base);
+$error-base:      map.get($error, base);
