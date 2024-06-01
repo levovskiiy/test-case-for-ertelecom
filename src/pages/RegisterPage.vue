@@ -3,17 +3,26 @@ import { reactive } from 'vue';
 
 import ErInput from '@components/input/ErInput.vue';
 import ErButton from '@components/button/ErButton.vue';
+import { useRouter } from 'vue-router';
+import { server } from '@/api/base.js';
 
 const state = reactive({
     email: 'levovskiiy1@yandex.ru',
     password: '1234567',
 });
+
+const router = useRouter();
+
+async function signUp() {
+    await server.auth.signUp(state);
+    await router.push('/login');
+}
 </script>
 
 <template>
     <div class="register-page">
         <h1 class="title">Зарегистироваться в системе</h1>
-        <form class="login-form">
+        <form @submit.prevent="signUp" class="login-form">
             <ErInput
                 v-model="state.email"
                 type="email"

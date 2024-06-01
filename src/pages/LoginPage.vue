@@ -3,17 +3,37 @@ import { reactive } from 'vue';
 
 import ErInput from '@components/input/ErInput.vue';
 import ErButton from '@components/button/ErButton.vue';
+import { server } from '@/api/base.js';
+import { useRouter } from 'vue-router';
+import { useToastStore } from '@/store/toast.store.js';
+import { useLoaderStore } from '@/store/loader.store.js';
 
 const state = reactive({
     email: 'levovskiiy1@yandex.ru',
     password: '1234567',
 });
+
+const toaster = useToastStore();
+const loader = useLoaderStore();
+const router = useRouter();
+
+async function signIn() {
+    try {
+        loader.waitRequest();
+        await server.auth.signInWithPassword(state);
+        await router.push('/');
+    } catch (e) {
+        toaster.add({ text: e.message, life: 2500 }, 'error');
+    } finally {
+       loader.doneRequest();
+    }
+}
 </script>
 
 <template>
     <div class="login-page">
         <h1 class="title">Войти в систему</h1>
-        <form class="login-form">
+        <form @submit.prevent="signIn" class="login-form">
             <ErInput
                 v-model="state.email"
                 type="email"

@@ -45,9 +45,9 @@ export function initRouter() {
      * на страницы которые требуют авторизации
      */
     router.beforeEach((to, from, next) => {
-        server.auth.getSession().then(({ data: { session } }) => {
+        server.auth.getUser().then(({ data: { user } }) => {
             if (to.name === 'login') {
-                if (session) {
+                if (user) {
                     next('/');
                 } else {
                     next();
@@ -61,7 +61,7 @@ export function initRouter() {
                 return;
             }
 
-            if (!session) {
+            if (!user) {
                 next('/login');
                 return;
             }

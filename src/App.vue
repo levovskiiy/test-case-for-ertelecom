@@ -1,6 +1,10 @@
 <script setup>
+import ErToastContainer from '@components/toast/ErToastContainer.vue';
+import ErLoader from '@components/loader/ErLoader.vue';
+
 import { shallowRef, watch } from 'vue';
 import { useRoute } from 'vue-router';
+
 
 const layout = shallowRef();
 
@@ -24,6 +28,8 @@ watch(
 </script>
 
 <template>
+    <ErLoader/>
+    <ErToastContainer/>
     <component :is="layout">
         <RouterView />
     </component>

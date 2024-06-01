@@ -71,4 +71,5 @@ $text-color: (
     @include set-css-vars-from-map(warning, $warning);
     @include set-css-vars-from-map(error, $error);
     @include set-css-vars-from-map(text-color, $text-color);
+    @include set-css-vars-from-map(primary, base.$primary);
 }
