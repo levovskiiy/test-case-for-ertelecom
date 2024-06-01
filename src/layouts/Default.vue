@@ -1,7 +1,9 @@
 <script setup></script>
 
 <template>
-    <div class="home-page">home</div>
+    <div class="default-layout">
+        <slot></slot>
+    </div>
 </template>
 
 <style scoped></style>
