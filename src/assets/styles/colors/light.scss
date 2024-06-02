@@ -65,11 +65,9 @@ $text-color: (
              );
 
 :root {
-    @include set-css-vars-from-map(gamma, base.$gamma);
     @include set-css-vars-from-map(primary, $primary);
     @include set-css-vars-from-map(success, $success);
     @include set-css-vars-from-map(warning, $warning);
     @include set-css-vars-from-map(error, $error);
     @include set-css-vars-from-map(text-color, $text-color);
-    @include set-css-vars-from-map(primary, base.$primary);
 }

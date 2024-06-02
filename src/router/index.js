@@ -31,6 +31,14 @@ const routes = [
             noAuth: true,
         },
     },
+    {
+        name: 'profile',
+        path: '/profile',
+        component: () => import('../pages/ProfilePage.vue'),
+        meta: {
+            layout: 'Default',
+        }
+    }
 ];
 
 export function initRouter() {

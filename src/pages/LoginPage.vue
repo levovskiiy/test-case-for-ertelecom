@@ -7,26 +7,33 @@ import { server } from '@/api/base.js';
 import { useRouter } from 'vue-router';
 import { useToastStore } from '@/store/toast.store.js';
 import { useLoaderStore } from '@/store/loader.store.js';
+import { useForm } from '@/composables/useForm.js';
 
-const state = reactive({
+const { formState, submit } = useForm({
     email: 'levovskiiy1@yandex.ru',
     password: '1234567',
-});
+})
 
 const toaster = useToastStore();
 const loader = useLoaderStore();
 const router = useRouter();
 
 async function signIn() {
-    try {
-        loader.waitRequest();
-        await server.auth.signInWithPassword(state);
-        await router.push('/');
-    } catch (e) {
-        toaster.add({ text: e.message, life: 2500 }, 'error');
-    } finally {
-       loader.doneRequest();
-    }
+    await submit(server.auth.signInWithPassword, {
+        onBefore: () => {
+            loader.waitRequest();
+        },
+        onFinish: () => {
+            loader.doneRequest();
+        },
+        onSuccess: async () => {
+            toaster.add({ text: 'Вы успешно авторизованы!' })
+            await router.push('/login');
+        },
+        onError: (errors) => {
+            toaster.add({ text: errors?.message }, 'error');
+        }
+    });
 }
 </script>
 
@@ -35,13 +42,13 @@ async function signIn() {
         <h1 class="title">Войти в систему</h1>
         <form @submit.prevent="signIn" class="login-form">
             <ErInput
-                v-model="state.email"
+                v-model="formState.fields.email"
                 type="email"
                 name="email"
                 label="Email"
             />
             <ErInput
-                v-model="state.password"
+                v-model="formState.fields.password"
                 type="password"
                 name="password"
                 label="Password"
@@ -49,6 +56,7 @@ async function signIn() {
             <ErButton
                 type="submit"
                 size="large"
+                :disabled="formState.processing || formState.hasErrors"
             >
                 Войти
             </ErButton>

@@ -6,13 +6,12 @@ export const useToastStore = defineStore('store/toast', () => {
     const toastStack = ref([]);
     const incrementalId = ref(0);
 
-    function add(toast) {
-        console.log(incrementalId.value);
+    function add(toast, type = 'info') {
         toastStack.value.push({
             id: incrementalId.value++,
-            message: toast.message.text,
-            life: toast.message.life || 2000,
-            type: toast.type,
+            message: toast.text,
+            life: toast.life || 2000,
+            type: type,
         });
     }
 
