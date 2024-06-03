@@ -4,7 +4,7 @@ export function useForm(initialValues) {
     let defaultValues = initialValues;
 
     const formState = reactive({
-        fields: structuredClone(defaultValues),
+        fields: defaultValues,
         errors: {},
         dirty: false,
         hasErrors: false,
@@ -12,17 +12,17 @@ export function useForm(initialValues) {
         wasSuccessful: false,
     });
 
-    async function onBeforeSubmit() {
+    function onBeforeSubmit() {
         formState.processing = true;
         formState.wasSuccessful = false;
     }
 
-    async function onAfterSubmit() {
+    function onAfterSubmit() {
         formState.processing = false;
         formState.wasSuccessful = true;
     }
 
-    async function onErrorSubmit(error) {
+    function onErrorSubmit(error) {
         formState.hasErrors = true;
         formState.errors = error;
     }
@@ -31,11 +31,10 @@ export function useForm(initialValues) {
         formState.errors = {};
     }
 
-    async function onSuccessSubmit() {
+    function onSuccessSubmit() {
         clearErrors();
         formState.processing = false;
         formState.wasSuccessful = true;
-        defaultValues = structuredClone(formState.fields);
     }
 
     async function submit(submitHandler, hooks = {
@@ -47,20 +46,20 @@ export function useForm(initialValues) {
         if (formState.processing)
             return;
 
-        await onBeforeSubmit();
+        onBeforeSubmit();
         await hooks.onBefore();
 
         try {
             const result = await submitHandler(formState.fields);
-            await onSuccessSubmit();
+            onSuccessSubmit();
             await hooks.onSuccess(result);
 
             return result;
         } catch (e) {
-            await onErrorSubmit(e);
+            onErrorSubmit(e);
             await hooks.onError(formState.errors);
         } finally {
-            await onAfterSubmit();
+            onAfterSubmit();
             await hooks.onFinish();
         }
     }

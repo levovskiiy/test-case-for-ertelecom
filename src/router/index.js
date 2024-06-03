@@ -4,6 +4,7 @@ import RegisterPage from '@/pages/RegisterPage.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
 import { server } from '@/api/base.js';
+import { getMe } from '@/api/user.js';
 
 const routes = [
     {
@@ -31,14 +32,6 @@ const routes = [
             noAuth: true,
         },
     },
-    {
-        name: 'profile',
-        path: '/profile',
-        component: () => import('../pages/ProfilePage.vue'),
-        meta: {
-            layout: 'Default',
-        }
-    }
 ];
 
 export function initRouter() {
@@ -53,7 +46,7 @@ export function initRouter() {
      * на страницы которые требуют авторизации
      */
     router.beforeEach((to, from, next) => {
-        server.auth.getUser().then(({ data: { user } }) => {
+        getMe().then((user) => {
             if (to.name === 'login') {
                 if (user) {
                     next('/');

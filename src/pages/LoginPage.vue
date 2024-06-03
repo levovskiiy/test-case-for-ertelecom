@@ -19,7 +19,7 @@ const loader = useLoaderStore();
 const router = useRouter();
 
 async function signIn() {
-    await submit(server.auth.signInWithPassword, {
+    await submit((values) => server.auth.signInWithPassword(values), {
         onBefore: () => {
             loader.waitRequest();
         },
@@ -27,10 +27,10 @@ async function signIn() {
             loader.doneRequest();
         },
         onSuccess: async () => {
-            toaster.add({ text: 'Вы успешно авторизованы!' })
-            await router.push('/login');
+            await router.push('/');
         },
         onError: (errors) => {
+            console.log(errors);
             toaster.add({ text: errors?.message }, 'error');
         }
     });

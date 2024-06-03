@@ -1,9 +1,9 @@
 <script setup>
 import ErButton from '@/common/components/button/ErButton.vue';
 
-import { ref } from 'vue';
-import { getPromiseProxy } from '@/utils/async.js';
 import { Icon } from '@iconify/vue';
+import { provide, ref } from 'vue';
+import { getPromiseProxy } from '@/utils/async.js';
 
 defineOptions({
     inheritAttrs: false,
@@ -22,9 +22,13 @@ const props = defineProps({
         type: String,
         default: '400px',
     },
+    title: {
+        type: String,
+    },
 });
 
 const canShow = ref(false);
+
 let promise = getPromiseProxy();
 
 function open() {
@@ -59,25 +63,52 @@ function clickOutside() {
 
 <template>
     <Teleport to="body">
-        <Transition name="overlay" class="er-dialog">
-            <div ref="overlay" v-if="canShow" class="overlay" @click.self="clickOutside">
-                <Transition name="dialog" class="er-dialog-container">
-                    <div v-bind="$attrs" v-if="canShow" class="er-dialog"  :style="{ width }">
+        <Transition name="overlay">
+            <div
+                v-show="canShow"
+                class="overlay"
+                @click.self="clickOutside"
+            >
+                <Transition name="dialog">
+                    <div
+                        v-show="canShow"
+                        v-bind="$attrs"
+                        :style="{ width }"
+                        class="er-dialog"
+                    >
                         <div class="header">
-                            <div class="title">
-                                <slot name="title"></slot>
-                            </div>
-                            <div class="close">
-                                <ErButton only-icon visual="text" @click="close">
-                                    <Icon icon="mdi:close" width="24" height="24" />
-                                </ErButton>
-                            </div>
+                            <slot name="header" :close="close">
+                                <div class="title">
+                                    {{ title }}
+                                </div>
+                                <div class="close">
+                                    <ErButton only-icon visual="text" @click="close">
+                                        <Icon icon="mdi:close" width="24" height="24" />
+                                    </ErButton>
+                                </div>
+                            </slot>
                         </div>
                         <div class="body">
                             <slot>Content</slot>
                         </div>
                         <div class="footer">
-                            <slot name="footer" :accept="accept" :close="close"></slot>
+                            <slot name="footer" :accept="accept" :close="close">
+                                <ErButton
+                                    type="button"
+                                    size="large"
+                                    @click="accept"
+                                >
+                                    Подтверить
+                                </ErButton>
+                                <ErButton
+                                    type="button"
+                                    visual="text"
+                                    size="large"
+                                    @click="close"
+                                >
+                                    Отменить
+                                </ErButton>
+                            </slot>
                         </div>
                     </div>
                 </Transition>
@@ -114,6 +145,12 @@ function clickOutside() {
                 font-weight: 700;
             }
         }
+
+        .footer {
+            display:     flex;
+            align-items: center;
+            gap:         4px;
+        }
     }
 }
 
@@ -130,7 +167,7 @@ function clickOutside() {
 
 .overlay-enter-active,
 .overlay-leave-active {
-    transition: all 0.3s;
+    transition: all 0.125s;
 }
 
 .dialog-enter-from,
@@ -145,7 +182,7 @@ function clickOutside() {
 
 .dialog-enter-active,
 .dialog-leave-active {
-    transition: all 0.1s ease;
+    transition: all 0.125s;
 }
 
 </style>
