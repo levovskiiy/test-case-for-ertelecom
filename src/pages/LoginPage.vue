@@ -6,8 +6,8 @@ import { useRouter } from 'vue-router';
 import { reactive } from 'vue';
 
 const state = reactive({
-    email: 'levovskiiy1@yandex.ru',
-    password: '1234567',
+    email: '',
+    password: '',
 })
 
 const router = useRouter();
