@@ -27,8 +27,6 @@ export function useEntityTable(selectedNode) {
         try {
             loading.value = true;
 
-            console.log(addressMap.value);
-
             const { data } = await server.from('services')
                 .insert({
                     ...addressMap.value,

@@ -15,7 +15,6 @@ function reset() {
 function open(value) {
     reset();
 
-    console.log(value);
     address.value = value;
     return dialog.value.open();
 }
