@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, onMounted, reactive, ref } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
 import ErButton from '@/common/components/button/ErButton.vue';
 import { useClickOutside } from '@/common/composables/useClickOutside.js';
 import TransitionScale from '@/common/components/transition_scale/TransitionScale.vue';
