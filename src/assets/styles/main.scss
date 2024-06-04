@@ -1,14 +1,7 @@
 @use "vendor/normalize";
-@use "config";
 @use "colors/base";
 @use "colors/light";
-@use "utils/mixins" as *;
 @use "utils/functions" as *;
-@use "duration";
-
-:root {
-    @include set-css-vars-from-map(duration, duration.$duration);
-}
 
 body {
     font-family: "Montserrat", sans-serif;

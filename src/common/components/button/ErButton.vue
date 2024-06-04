@@ -5,12 +5,12 @@ const props = defineProps({
     mode: {
         type: String,
         default: 'primary',
-        validator: (value) => [ 'primary', 'success', 'warning', 'error' ].includes(value),
+        validator: (value) => [ 'primary', 'error' ].includes(value),
     },
     visual: {
         type: String,
         default: 'filled',
-        validator: (value) => [ 'filled', 'outlined', 'text' ].includes(value),
+        validator: (value) => [ 'filled', 'text' ].includes(value),
     },
     size: {
         type: String,
@@ -141,7 +141,7 @@ $sizes: (
     display:          inline-flex;
     align-items:      center;
     justify-content:  center;
-    transition:       all getCssVarValue(duration, regular);
+    transition:       all 0.125s;
     background-color: getCssVarValue(button, bg, color);
     padding:          getCssVarValue(button, padding);
     font-size:        getCssVarValue(button, text-size);

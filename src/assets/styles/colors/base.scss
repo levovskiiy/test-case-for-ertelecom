@@ -2,19 +2,13 @@
 @use "sass:map";
 @use "../utils/mixins" as *;
 
-$types:                 primary, success, warning, error;
+$types:                 primary, error;
 
 $base-gamma-color:      #fff;
 $base-gamma-dark-color: #000;
 $colors:                (
                             primary: (
                                 base: #000000,
-                            ),
-                            success: (
-                                base: #52C41A,
-                            ),
-                            warning: (
-                                base: #FAAD14,
                             ),
                             error: (
                                 base: #d8090b,
@@ -53,18 +47,14 @@ $colors:                (
 
 
 $primary:               map.get($colors, primary);
-$success:               map.get($colors, success);
-$warning:               map.get($colors, warning);
 $error:                 map.get($colors, error);
 $gamma:                 map.get($colors, gamma);
 
 $primary-base:          map.get($primary, base);
-$success-base:          map.get($success, base);
-$warning-base:          map.get($warning, base);
 $error-base:            map.get($error, base);
 
 
-$palette-map:           (primary: $primary, success: $success, warning: $warning, error: $error, gamma: $gamma);
+$palette-map:           (primary: $primary, error: $error, gamma: $gamma);
 
 :root {
     @each $palette-name, $palette in $palette-map {

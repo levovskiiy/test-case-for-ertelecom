@@ -16,34 +16,6 @@ $primary:    (
              );
 
 
-$success:    (
-                 color-bg: map.get(base.$success, 'light-9'),
-                 color-bg-hover: map.get(base.$success, 'light-8'),
-                 color-border: map.get(base.$success, 'light-7'),
-                 color-border-hover: map.get(base.$success, 'light-6'),
-                 color: base.$success-base,
-                 color-hover: map.get(base.$success, 'light-2'),
-                 color-active: map.get(base.$success, 'light-3'),
-                 color-text: map.get(base.$success, 'light-4'),
-                 color-text-hover: map.get(base.$success, 'light-2'),
-                 color-text-active: map.get(base.$success, 'light-3'),
-             );
-
-
-$warning:    (
-                 color-bg: map.get(base.$warning, 'light-9'),
-                 color-bg-hover: map.get(base.$warning, 'light-8'),
-                 color-border: map.get(base.$warning, 'light-7'),
-                 color-border-hover: map.get(base.$warning, 'light-6'),
-                 color: base.$warning-base,
-                 color-hover: map.get(base.$warning, 'light-2'),
-                 color-active: map.get(base.$warning, 'light-3'),
-                 color-text: map.get(base.$warning, 'light-4'),
-                 color-text-hover: map.get(base.$warning, 'light-2'),
-                 color-text-active: map.get(base.$warning, 'light-3'),
-             );
-
-
 $error:      (
                  color-bg: map.get(base.$error, 'light-9'),
                  color-bg-hover: map.get(base.$error, 'light-8'),
@@ -66,8 +38,6 @@ $text-color: (
 
 :root {
     @include set-css-vars-from-map(primary, $primary);
-    @include set-css-vars-from-map(success, $success);
-    @include set-css-vars-from-map(warning, $warning);
     @include set-css-vars-from-map(error, $error);
     @include set-css-vars-from-map(text-color, $text-color);
 }
