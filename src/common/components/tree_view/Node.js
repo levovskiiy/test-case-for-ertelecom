@@ -26,10 +26,6 @@ export class Node {
         return this.data[this.treeState.nodeOptions.label];
     }
 
-    get childrenKey() {
-        return this.data[this.treeState.nodeOptions.children];
-    }
-
     /**
      * Проверить, необходимо ли нам делать подгрузку данных
      * @returns {*|boolean}
@@ -40,11 +36,6 @@ export class Node {
 
         return this.treeState.lazy && this.treeState.dataLoader;
     }
-
-    init() {
-        this.treeState.register(this, this.data.id);
-    }
-
 
     /**
      * Добавить дочерный элемент к текущему узлу.
@@ -87,7 +78,6 @@ export class Node {
             children.splice(index, 1);
         }
     }
-
 
     /**
      * Произвести удаленную загрузку данных. Производится в случае если дерево настроенно

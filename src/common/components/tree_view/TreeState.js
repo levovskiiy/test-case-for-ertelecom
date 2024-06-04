@@ -7,13 +7,9 @@ export class TreeState {
     data;
     lazy = false;
     dataLoader;
-    nodeMap;
-
-    currentNodeKey = 'current_node';
 
     constructor(options) {
         this.currentNode = null;
-        this.nodeMap = {};
 
         for (const opt of Object.keys(options)) {
             this[opt] = options[opt];
@@ -30,16 +26,6 @@ export class TreeState {
                 this.root.createChildren(data);
             });
         }
-    }
-
-    register(node, id) {
-        if (!node) return;
-        this.nodeMap[id] = node;
-    }
-
-    removeItem(node, id) {
-        if (!node) return;
-        this.nodeMap[id] = null;
     }
 
     setCurrent(node) {
