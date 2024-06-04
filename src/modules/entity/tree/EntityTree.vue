@@ -62,7 +62,7 @@ async function lazyLoad(node, resolve) {
 const contextMenu = ref();
 const contextMenuActions = ref([]);
 
-async function onTreeNodeContextMenu({ event, node }) {
+function onTreeNodeContextMenu({ event, node }) {
     contextMenuActions.value = CONTEXT_NODE_MAP[node.data.type];
 
     contextMenu.value?.open(event, {
