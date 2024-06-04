@@ -1,23 +1,74 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomePage from '@/pages/HomePage.vue';
+import LoginPage from '@/pages/LoginPage.vue';
+import RegisterPage from '@/pages/RegisterPage.vue';
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+import { createRouter, createWebHistory } from 'vue-router';
+import { getMe } from '@/api/user.js';
+
+const routes = [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+        name: 'home',
+        path: '/',
+        component: HomePage,
+        meta: {
+            layout: 'Default',
+        },
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
-})
+        name: 'login',
+        path: '/login',
+        component: LoginPage,
+        meta: {
+            layout: 'Auth',
+        },
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: RegisterPage,
+        meta: {
+            layout: 'Auth',
+            noAuth: true,
+        },
+    },
+];
 
-export default router
+export function initRouter() {
+    const router = createRouter({
+        history: createWebHistory(import.meta.env.BASE_URL),
+        routes,
+    });
+
+    /**
+     * Перед каждым заходом на роут будем проверять, есть ли у нас сессия
+     * Гвард нужен для того чтобы не допустить неавторизованног пользователя
+     * на страницы которые требуют авторизации
+     */
+    router.beforeEach((to, from, next) => {
+        getMe().then((user) => {
+            if (to.name === 'login') {
+                if (user) {
+                    next('/');
+                } else {
+                    next();
+                }
+
+                return;
+            }
+
+            if (to.meta.noAuth) {
+                next();
+                return;
+            }
+
+            if (!user) {
+                next('/login');
+                return;
+            }
+
+            next();
+        });
+    });
+
+    return router;
+}

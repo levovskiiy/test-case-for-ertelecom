@@ -1,0 +1,13 @@
+@use "vendor/normalize";
+@use "colors/base";
+@use "colors/light";
+@use "utils/functions" as *;
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-size:   14px;
+    font-weight: 400;
+    margin:      0;
+    padding:     0;
+    color:       getCssVarValue(text, color, base);
+}

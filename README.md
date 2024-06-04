@@ -1,35 +1,14 @@
 # test-case-frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Репо с тестововым заданием для компании [ЭР-ТЕЛЕКОМ](https://ertelecom.ru/)
 
-## Recommended IDE Setup
+## Настройка проекта и запуск
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+1. Установить зависимости `npm install`
+2. Запустить проект `npm run dev`
 
-## Customize configuration
+В проекте используется supabase для минимального бэка, хоть в ТЗ этого не было, я решил добавить.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+В env файлике пока живой токен для теста:)
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Буду ждать вашего ответа!
