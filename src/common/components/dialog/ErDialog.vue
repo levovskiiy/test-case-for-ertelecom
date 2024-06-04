@@ -2,8 +2,9 @@
 import ErButton from '@/common/components/button/ErButton.vue';
 
 import { Icon } from '@iconify/vue';
-import { provide, ref } from 'vue';
-import { getPromiseProxy } from '@/utils/async.js';
+import { ref } from 'vue';
+import { getPromiseProxy } from '@/common/utils/async.js';
+import TransitionScale from '@/common/components/transition_scale/TransitionScale.vue';
 
 defineOptions({
     inheritAttrs: false,
@@ -69,11 +70,10 @@ function clickOutside() {
                 class="overlay"
                 @click.self="clickOutside"
             >
-                <Transition name="dialog">
+                <TransitionScale>
                     <div
                         v-show="canShow"
                         v-bind="$attrs"
-                        :style="{ width }"
                         class="er-dialog"
                     >
                         <div class="header">
@@ -111,7 +111,7 @@ function clickOutside() {
                             </slot>
                         </div>
                     </div>
-                </Transition>
+                </TransitionScale>
             </div>
         </Transition>
     </Teleport>
@@ -169,20 +169,4 @@ function clickOutside() {
 .overlay-leave-active {
     transition: all 0.125s;
 }
-
-.dialog-enter-from,
-.dialog-leave-to {
-    transform: scale(0);
-}
-
-.dialog-enter-to,
-.dialog-leave-from {
-    transform: scale(1);
-}
-
-.dialog-enter-active,
-.dialog-leave-active {
-    transition: all 0.125s;
-}
-
 </style>

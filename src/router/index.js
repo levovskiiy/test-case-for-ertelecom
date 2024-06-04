@@ -3,7 +3,6 @@ import LoginPage from '@/pages/LoginPage.vue';
 import RegisterPage from '@/pages/RegisterPage.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
-import { server } from '@/api/base.js';
 import { getMe } from '@/api/user.js';
 
 const routes = [

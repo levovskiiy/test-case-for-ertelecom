@@ -6,10 +6,10 @@ import ErButton from '@/common/components/button/ErButton.vue';
 
 const dialog = ref();
 
-const entraceName = ref();
+const entranceName = ref();
 
-function open(entrace) {
-    entraceName.value = entrace;
+function open(entrance) {
+    entranceName.value = entrance;
     return dialog.value.open();
 }
 
@@ -19,22 +19,20 @@ defineExpose({
 </script>
 
 <template>
-    <ErDialog title="Изменить номер подъезда" class="entity-create-area" ref="dialog">
-        <div class="fields">
-            <ErInput
-                v-model="entraceName"
-                name="area"
-                label="Номер подъезда"
-                type="text"
-            />
-        </div>
+    <ErDialog title="Изменить номер подъезда" class="entity-update-entrance" ref="dialog">
+        <ErInput
+            v-model="entranceName"
+            name="area"
+            label="Номер подъезда"
+            type="text"
+        />
 
         <template #footer="{ accept, close }">
             <ErButton
                 size="large"
-                @click="accept(entraceName)"
+                @click="accept(entranceName)"
             >
-                Добавить
+                Изменить
             </ErButton>
             <ErButton
                 size="large"
@@ -46,13 +44,3 @@ defineExpose({
         </template>
     </ErDialog>
 </template>
-
-<style lang="scss" scoped>
-.entity-create-area {
-    .fields {
-        display:   flex;
-        flex-flow: column nowrap;
-        gap:       10px;
-    }
-}
-</style>

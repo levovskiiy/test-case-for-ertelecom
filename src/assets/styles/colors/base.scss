@@ -8,7 +8,7 @@ $base-gamma-color:      #fff;
 $base-gamma-dark-color: #000;
 $colors:                (
                             primary: (
-                                base: #1b1a1a,
+                                base: #000000,
                             ),
                             success: (
                                 base: #52C41A,
@@ -17,7 +17,7 @@ $colors:                (
                                 base: #FAAD14,
                             ),
                             error: (
-                                base: #FF4D4F,
+                                base: #d8090b,
                             ),
                             gamma: (
                                 base: $base-gamma-color,

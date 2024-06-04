@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ErDialog from '@/common/components/dialog/ErDialog.vue';
-import ErInput from '@/common/components/input/ErInput.vue';
-import ErButton from '@/common/components/button/ErButton.vue';
+import { ErDialog, ErInput, ErButton } from '@/common/components';
 
 const dialog = ref();
 
@@ -10,6 +8,7 @@ const cityName = ref();
 const areaName = ref();
 
 function open(city) {
+    areaName.value = '';
     cityName.value = city;
     return dialog.value.open();
 }

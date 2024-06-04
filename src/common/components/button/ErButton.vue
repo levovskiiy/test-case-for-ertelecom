@@ -106,25 +106,6 @@ $sizes: (
                 }
             }
 
-            &.outlined {
-                @include set-css-vars-from-map(
-                        button,
-                        (
-                            'bg-color': transparent,
-                            'text-color': getCssVarValue($type, color, text),
-                            'bg-active': getCssVarValue($type, color, active),
-                            'bg-hover': getCssVarValue($type, color, hover),
-                            'border-color': getCssVarValue($type, color, border),
-                            'shadow-color': getCssVarValue($type, color, border),
-                            'border': 1px solid getCssVarValue($type, light, 1),
-                        )
-                );
-
-                &:hover {
-                    color: getCssVarValue(text, color, light);
-                }
-            }
-
             &.text {
                 @include set-css-vars-from-map(
                         button,

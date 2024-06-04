@@ -1,39 +1,20 @@
 <script setup>
-import { reactive } from 'vue';
-
 import ErInput from '@components/input/ErInput.vue';
 import ErButton from '@components/button/ErButton.vue';
 import { server } from '@/api/base.js';
 import { useRouter } from 'vue-router';
-import { useToastStore } from '@/store/toast.store.js';
-import { useLoaderStore } from '@/store/loader.store.js';
-import { useForm } from '@/composables/useForm.js';
+import { reactive } from 'vue';
 
-const { formState, submit } = useForm({
+const state = reactive({
     email: 'levovskiiy1@yandex.ru',
     password: '1234567',
 })
 
-const toaster = useToastStore();
-const loader = useLoaderStore();
 const router = useRouter();
 
 async function signIn() {
-    await submit((values) => server.auth.signInWithPassword(values), {
-        onBefore: () => {
-            loader.waitRequest();
-        },
-        onFinish: () => {
-            loader.doneRequest();
-        },
-        onSuccess: async () => {
-            await router.push('/');
-        },
-        onError: (errors) => {
-            console.log(errors);
-            toaster.add({ text: errors?.message }, 'error');
-        }
-    });
+    await server.auth.signInWithPassword(state);
+    await router.push('/');
 }
 </script>
 
@@ -42,13 +23,13 @@ async function signIn() {
         <h1 class="title">Войти в систему</h1>
         <form @submit.prevent="signIn" class="login-form">
             <ErInput
-                v-model="formState.fields.email"
+                v-model="state.email"
                 type="email"
                 name="email"
                 label="Email"
             />
             <ErInput
-                v-model="formState.fields.password"
+                v-model="state.password"
                 type="password"
                 name="password"
                 label="Password"
@@ -56,7 +37,6 @@ async function signIn() {
             <ErButton
                 type="submit"
                 size="large"
-                :disabled="formState.processing || formState.hasErrors"
             >
                 Войти
             </ErButton>

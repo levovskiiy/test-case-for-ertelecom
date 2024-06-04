@@ -19,22 +19,20 @@ defineExpose({
 </script>
 
 <template>
-    <ErDialog title="Изменить номер дома" class="entity-create-area" ref="dialog">
-        <div class="fields">
-            <ErInput
-                v-model="homeName"
-                name="area"
-                label="Наименование дома"
-                type="text"
-            />
-        </div>
+    <ErDialog title="Изменить номер дома" class="entity-update-home" ref="dialog">
+        <ErInput
+            v-model="homeName"
+            name="area"
+            label="Наименование дома"
+            type="text"
+        />
 
         <template #footer="{ accept, close }">
             <ErButton
                 size="large"
                 @click="accept(homeName)"
             >
-                Добавить
+                Изменить
             </ErButton>
             <ErButton
                 size="large"
@@ -46,13 +44,3 @@ defineExpose({
         </template>
     </ErDialog>
 </template>
-
-<style lang="scss" scoped>
-.entity-create-area {
-    .fields {
-        display:   flex;
-        flex-flow: column nowrap;
-        gap:       10px;
-    }
-}
-</style>

@@ -39,7 +39,7 @@ async function signUp() {
                 type="submit"
                 size="large"
             >
-                Войти
+                Зарегистрироваться
             </ErButton>
         </form>
 

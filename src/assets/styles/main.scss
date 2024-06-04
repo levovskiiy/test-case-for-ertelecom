@@ -16,19 +16,5 @@ body {
     font-weight: 400;
     margin:      0;
     padding:     0;
-}
-
-@layer components {
-    a {
-        text-decoration: none;
-        color: getCssVarValue(primary, color, text);
-
-        &:hover {
-            color: getCssVarValue(primary, color, text, hover);
-        }
-
-        &:visited {
-            color: getCssVarValue(primary, color, text, active);
-        }
-    }
+    color:       getCssVarValue(text, color, base);
 }

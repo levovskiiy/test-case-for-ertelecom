@@ -1,7 +1,8 @@
 <script setup>
-import { nextTick, reactive, ref, watch } from 'vue';
+import { nextTick, onMounted, reactive, ref } from 'vue';
 import ErButton from '@/common/components/button/ErButton.vue';
-import { useClickOutside } from '@/composables/useClickOutside.js';
+import { useClickOutside } from '@/common/composables/useClickOutside.js';
+import TransitionScale from '@/common/components/transition_scale/TransitionScale.vue';
 
 const props = defineProps({
     actions: {
@@ -25,13 +26,15 @@ function open(e, data) {
     contextData.value = data;
     position.x = e.clientX;
     position.y = e.clientY;
+    show.value = true;
 
     nextTick(() => {
         contextContainer.value.style.setProperty('--top', (position.y) + 'px');
         contextContainer.value.style.setProperty('--left', (position.x) + 'px');
+
+        contextContainer.value.focus();
     });
 
-    show.value = true;
 }
 
 function close() {
@@ -54,22 +57,41 @@ function onClickItem(item) {
     item.handler(contextData.value);
     close();
 }
+
+function onKeydownItem(ev) {
+    for (const item of props.actions) {
+        const keyboardKey = item.keyboardKey.toLowerCase();
+
+        if (keyboardKey === ev.key) {
+            return onClickItem(item);
+        }
+    }
+}
 </script>
 
 <template>
-    <Transition name="overlay">
+    <TransitionScale>
         <div
             v-show="show"
             class="context-menu"
+            tabindex="-1"
             ref="contextContainer"
             @contextmenu.capture.prevent
+            @keydown="onKeydownItem"
         >
-            <ErButton v-for="(item, id) in actions" :key="id" @click="onClickItem(item)" size="small" visual="text"
-                      class="button">
-                {{ item.title }} <span v-if="item.keyboardKey">({{ item.keyboardKey }})</span>
+            <ErButton
+                v-for="(item, id) in actions" :key="id"
+                :size="item.options?.size || 'small'"
+                :visual="item.options?.visual || 'text'"
+                :mode="item.options?.mode || 'primary'"
+                class="button"
+                @click="onClickItem(item)"
+            >
+                <span class="title">{{ item.title }}</span>
+                <span v-if="item.keyboardKey">({{ item.keyboardKey }})</span>
             </ErButton>
         </div>
-    </Transition>
+    </TransitionScale>
 
 </template>
 
@@ -80,10 +102,10 @@ function onClickItem(item) {
     position:      absolute;
     top:           var(--top);
     left:          var(--left);
-    background:    getCssVarValue(gamma, light, 1);
+    background:    getCssVarValue(primary, light, 2);
     box-sizing:    border-box;
     padding:       6px;
-    border-radius: 8px;
+    border-radius: 4px;
     display:       flex;
     flex-flow:     column nowrap;
     gap:           4px;
@@ -93,23 +115,9 @@ function onClickItem(item) {
         outline: none;
     }
 
+    .button {
+        justify-content: space-between;
+        color:           getCssVarValue(text, color, light);
+    }
 }
-
-.overlay-enter-from,
-.overlay-leave-to {
-    opacity:   0;
-    transform: scale(0);
-}
-
-.overlay-enter-to,
-.overlay-leave-from {
-    opacity:   1;
-    transform: scale(1);
-}
-
-.overlay-enter-active,
-.overlay-leave-active {
-    transition: all 0.125s ease;
-}
-
 </style>

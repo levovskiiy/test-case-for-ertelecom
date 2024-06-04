@@ -19,15 +19,13 @@ defineExpose({
 </script>
 
 <template>
-    <ErDialog title="Изменить наименование улицы" class="entity-create-area" ref="dialog">
-        <div class="fields">
-            <ErInput
-                v-model="streetName"
-                name="area"
-                label="Наименование улицы"
-                type="text"
-            />
-        </div>
+    <ErDialog title="Изменить наименование улицы" class="entity-update-street" ref="dialog">
+        <ErInput
+            v-model="streetName"
+            name="area"
+            label="Наименование улицы"
+            type="text"
+        />
 
         <template #footer="{ accept, close }">
             <ErButton
@@ -46,13 +44,3 @@ defineExpose({
         </template>
     </ErDialog>
 </template>
-
-<style lang="scss" scoped>
-.entity-create-area {
-    .fields {
-        display:   flex;
-        flex-flow: column nowrap;
-        gap:       10px;
-    }
-}
-</style>

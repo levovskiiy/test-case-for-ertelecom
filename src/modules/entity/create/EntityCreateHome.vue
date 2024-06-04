@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ErDialog from '@/common/components/dialog/ErDialog.vue';
-import ErInput from '@/common/components/input/ErInput.vue';
-import ErButton from '@/common/components/button/ErButton.vue';
+import { ErButton, ErDialog, ErInput } from '@/common/components';
 
 const dialog = ref();
 
@@ -11,6 +9,7 @@ const streetName = ref();
 const homeName = ref();
 
 function open(area, street) {
+    homeName.value = '';
     areaName.value = area;
     streetName.value = street;
     return dialog.value.open();
@@ -22,7 +21,7 @@ defineExpose({
 </script>
 
 <template>
-    <ErDialog title="Добавить дом" class="entity-create-area" ref="dialog">
+    <ErDialog title="Добавить дом" class="entity-create-home" ref="dialog">
         <div class="fields">
             <ErInput
                 :model-value="areaName"
@@ -65,7 +64,7 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.entity-create-area {
+.entity-create-home {
     .fields {
         display:   flex;
         flex-flow: column nowrap;

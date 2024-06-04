@@ -1,6 +1,10 @@
-import { request, server } from '@/api/base.js';
+import { server } from '@/api/base.js';
 
+/**
+ * Получить текущего пользователя
+ * @returns {Promise<User>}
+ */
 export async function getMe() {
-    const result = await request(() => server.auth.getUser());
+    const result = await server.auth.getUser();
     return result.data.user;
 }

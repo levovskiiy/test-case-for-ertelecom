@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ErDialog from '@/common/components/dialog/ErDialog.vue';
-import ErInput from '@/common/components/input/ErInput.vue';
-import ErButton from '@/common/components/button/ErButton.vue';
+import { ErButton, ErDialog, ErInput } from '@/common/components';
 
 const dialog = ref();
 
@@ -12,6 +10,7 @@ const areaName = ref();
 const streetName = ref();
 
 function open(city, area) {
+    streetName.value = '';
     cityName.value = city;
     areaName.value = area;
     return dialog.value.open();
@@ -23,7 +22,7 @@ defineExpose({
 </script>
 
 <template>
-    <ErDialog title="Добавить улицу" class="entity-create-area" ref="dialog">
+    <ErDialog title="Добавить улицу" class="entity-create-street" ref="dialog">
         <div class="fields">
             <ErInput
                 :model-value="cityName"
@@ -66,7 +65,7 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.entity-create-area {
+.entity-create-street {
     .fields {
         display:   flex;
         flex-flow: column nowrap;
