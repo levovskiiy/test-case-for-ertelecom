@@ -1,9 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue';
-import TreeView from '@/common/components/tree_view/ErTreeView.vue';
-import ContextMenu from '@/common/components/context_menu/ErContextMenu.vue';
 
-
+import { ErButton, ErTreeView, ErContextMenu } from '@/common/components';
 import { CONTEXT_NODE_MAP } from '@/modules/entity/common/entity.context.js';
 import { addEntity, loadEntities, loadEntitiesWithParentId } from '@/api/entity.js';
 import {
@@ -20,8 +18,6 @@ import {
     EntityUpdateStreet,
     EntityUpdateCity,
 } from '@/modules/entity/update/index.js';
-import { ErButton } from '@/common/components/index.js';
-
 
 const createCity = ref();
 const createDistrict = ref();
@@ -29,13 +25,11 @@ const createStreet = ref();
 const createHome = ref();
 const createEntrance = ref();
 
-
 const updateCity = ref();
 const updateDistrict = ref();
 const updateStreet = ref();
 const updateHome = ref();
 const updateEntrance = ref();
-
 
 const reqtMap = {
     cities: 'districts',
@@ -116,7 +110,6 @@ const nodeOptions = {
     nodeId: 'id',
 };
 
-
 const selected = defineModel({});
 
 function onNodeClick({ node }) {
@@ -129,7 +122,7 @@ const isEmpty = computed(() => treeRef.value?.root?.children.length === 0);
 <template>
     <div class="entity-tree" @contextmenu.prevent.self="onTreeRootContextMenu">
         <ErButton v-if="isEmpty" @click="addCity">Добавить город</ErButton>
-        <TreeView
+        <ErTreeView
             ref="treeRef"
             lazy
             :node-options="nodeOptions"
@@ -138,7 +131,7 @@ const isEmpty = computed(() => treeRef.value?.root?.children.length === 0);
             @node-click="onNodeClick"
         />
 
-        <ContextMenu ref="contextMenu" :actions="contextMenuActions" />
+        <ErContextMenu ref="contextMenu" :actions="contextMenuActions" />
         <EntityCreateCity
             ref="createCity"
         />
