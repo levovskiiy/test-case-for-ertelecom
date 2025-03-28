@@ -1,0 +1,21 @@
+@use "../config" as *;
+
+@function joinVarName($words...) {
+    $varName: "--" + $prefix;
+
+    @each $word in $words {
+        @if $word != '' {
+            $varName: $varName + '-' + $word;
+        }
+    }
+
+    @return $varName;
+}
+
+@function getCssVarName($words...) {
+    @return #{joinVarName($words...)};
+}
+
+@function getCssVarValue($words...) {
+    @return var(#{joinVarName($words...)});
+}
